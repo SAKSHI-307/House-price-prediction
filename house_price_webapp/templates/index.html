@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House Price Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="wrapper">
+    <div class="glass-card">
+      <h1>🏡 House Price Prediction</h1>
+      <p class="subtitle">Enter property details below to estimate its market price</p>
+
+      <form action="/predict" method="post" class="form-grid">
+        <!-- MSZoning -->
+        <div class="form-group">
+          <label for="MSZoning">MS Zoning</label>
+          <select name="MSZoning" id="MSZoning" required>
+            <option value="">Select zoning type...</option>
+            <option value="RL">Residential Low Density</option>
+            <option value="RM">Residential Medium Density</option>
+            <option value="RH">Residential High Density</option>
+            <option value="FV">Floating Village</option>
+          </select>
+        </div>
+
+        <!-- Lot Area -->
+        <div class="form-group">
+          <label for="LotArea">Lot Area (sq ft)</label>
+          <input type="number" name="LotArea" id="LotArea" min="500" max="200000" required placeholder="e.g., 8500" />
+        </div>
+
+        <!-- Overall Quality -->
+        <div class="form-group">
+          <label for="OverallQual">Overall Quality (1-10)</label>
+          <input type="number" name="OverallQual" id="OverallQual" min="1" max="10" required placeholder="e.g., 7" />
+        </div>
+
+        <!-- Overall Condition -->
+        <div class="form-group">
+          <label for="OverallCond">Overall Condition (1-10)</label>
+          <input type="number" name="OverallCond" id="OverallCond" min="1" max="10" required placeholder="e.g., 6" />
+        </div>
+
+        <!-- Year Built -->
+        <div class="form-group">
+          <label for="YearBuilt">Year Built</label>
+          <input
+            type="number"
+            name="YearBuilt"
+            id="YearBuilt"
+            min="1800"
+            max="{{ 2025|int }}"
+            required
+            placeholder="e.g., 2005"
+            oninput="if(this.value > new Date().getFullYear()) this.value = new Date().getFullYear();"
+          />
+        </div>
+
+        <!-- Living Area -->
+        <div class="form-group">
+          <label for="GrLivArea">Living Area (sq ft)</label>
+          <input type="number" name="GrLivArea" id="GrLivArea" min="300" max="10000" required placeholder="e.g., 2000" />
+        </div>
+
+        <!-- Full Bath -->
+        <div class="form-group">
+          <label for="FullBath">Full Bathrooms</label>
+          <input type="number" name="FullBath" id="FullBath" min="0" max="5" required placeholder="e.g., 2" />
+        </div>
+
+        <!-- Bedrooms -->
+        <div class="form-group">
+          <label for="BedroomAbvGr">Bedrooms Above Ground</label>
+          <input type="number" name="BedroomAbvGr" id="BedroomAbvGr" min="0" max="10" required placeholder="e.g., 3" />
+        </div>
+
+        <!-- Garage -->
+        <div class="form-group">
+          <label for="GarageCars">Garage Capacity (Cars)</label>
+          <input type="number" name="GarageCars" id="GarageCars" min="0" max="5" required placeholder="e.g., 2" />
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn">Predict Price</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // prevent selecting future years
+    const yearInput = document.getElementById('YearBuilt');
+    const currentYear = new Date().getFullYear();
+    yearInput.setAttribute('max', currentYear);
+  </script>
+</body>
+</html>
