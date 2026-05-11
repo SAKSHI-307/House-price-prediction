@@ -25,6 +25,7 @@ The goal is to build an accurate predictive model that estimates house prices ba
 * Matplotlib
 * Seaborn
 * Scikit-learn
+* Flask
 * PyCharm / Jupyter Notebook
 
 ---
@@ -38,10 +39,8 @@ house-price-prediction/
 │   └── house_data.csv
 │
 ├── src/
-│   └── model.py
-│
-├── notebook/
-│   └── house_price_prediction.ipynb
+│   └── app.py
+│   
 │
 ├── README.md
 └── requirements.txt
@@ -89,16 +88,9 @@ pip install -r requirements.txt
 Run the Python script:
 
 ```
-python src/model.py
+python src/app.py
 ```
 
-OR open the notebook:
-
-```
-jupyter notebook notebook/house_price_prediction.ipynb
-```
-
----
 
 ## 🧠 Model Used
 
