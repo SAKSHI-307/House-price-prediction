@@ -11,16 +11,20 @@ import matplotlib.pyplot as plt
 import pickle
 
 # 1️⃣ Load data
-train_df = pd.read_csv('train.csv')
+train_df = pd.read_csv('dataset/train.csv')
 print("Train shape:", train_df.shape)
 
 # 2️⃣ Separate features and target
 y = train_df['SalePrice']
 X = train_df.drop('SalePrice', axis=1)
 
-# 3️⃣ Separate categorical & numerical columns
-numeric_features = X.select_dtypes(include=[np.number]).columns
-categorical_features = X.select_dtypes(include=['object']).columns
+# 3️⃣ Convert all string columns to normal object type
+for col in X.select_dtypes(include=['string']).columns:
+    X[col] = X[col].astype('object')
+
+# Separate numerical and categorical columns
+numeric_features = X.select_dtypes(include=[np.number]).columns.tolist()
+categorical_features = X.select_dtypes(include=['object']).columns.tolist()
 
 print("Numeric features:", len(numeric_features))
 print("Categorical features:", len(categorical_features))
